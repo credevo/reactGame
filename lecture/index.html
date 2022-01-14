@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script><!--development => product로-->
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script><!--react를 dom에 붙이는 js-->
+    </head>
+    <body>
+        <div id="root"></div><!-- <div id="root"><button> like </button> </div> -->
+        <script>   
+            const e = React.createElement;
+            class LikeButton extends React.Component {
+                constructor(props){
+                    super(props); 
+                }
+                render(){
+                    // React.createElement(dom,property,innerHTML) 으로 정의하는것 같다.
+                    //
+                    // return e('button',null,'Like'); // <button onClick="onClick">Like</button>
+                    return e('button',{onClick :()=>{
+                        console.log('clicked')
+                    }},'Like');
+                }
+            }
+        </script>
+        <script>
+            ReactDOM.render(e(LikeButton), document.querySelector("#root"));
+        </script>
+    </body>
+
+</html>
