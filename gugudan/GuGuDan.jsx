@@ -1,3 +1,5 @@
+const React = require('react');
+
 const e = React.createElement
 
 class GuGuDan extends React.Component{
@@ -58,3 +60,5 @@ class GuGuDan extends React.Component{
         );
     }
 }
+
+module.exports = GuGuDan;
