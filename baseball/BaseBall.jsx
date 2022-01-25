@@ -1,4 +1,5 @@
 import React,{ Component } from 'react';
+import { createRef } from 'react';
 import Try from './Try';
 
 //숫자 4개를 겹치지 않고 랜덤하게 뽑는 함수
@@ -53,6 +54,7 @@ class BaseBall extends Component{
                 value : '',
                 tries : [],
             });
+            this.refInput.focus();
         }else{
             const valueArray = this.state.value.split('').map(v=>parseInt(v));
             let strike = 0;
@@ -79,6 +81,7 @@ class BaseBall extends Component{
                     tries : [...this.state.tries,{try: this.state.value, result : `strkie : ${strike}, ball : ${ball}`}],
                 })
             }
+            this.refInput.focus();
         }
     }
     onChangeInput = (e)=>{
@@ -86,6 +89,8 @@ class BaseBall extends Component{
             value : e.target.value,
         })
     }
+    refInput ; 
+    inputRef = (c)=> this.refInput=c;
     
     render = ()=>{
         const {result, value, tries} = this.state; // 구조 분해를 통해 state 간략
@@ -93,7 +98,7 @@ class BaseBall extends Component{
             <>
                 <h1>{this.state.result}</h1>
                 <form onSubmit={this.onSubmitForm}>
-                    <input maxLength={4} value={this.state.value} onChange={this.onChangeInput} />
+                    <input ref={this.inputRef}maxLength={4} value={this.state.value} onChange={this.onChangeInput} />
                     <button>입력</button>
                 </form>
                 <div>시도 : {this.state.tries.length}</div>
