@@ -1,6 +1,6 @@
 // import React,{ Component } from 'react';
 
-import React, {useState,useRef} from 'react';
+import React, {useState,useRef,memo, useMemo} from 'react';
 import Try from './Try';
 
 //숫자 4개를 겹치지 않고 랜덤하게 뽑는 함수
@@ -15,7 +15,7 @@ const getNumbers = ()=>{
     return array;
 };
 
-const BaseBall = ()=>{
+const BaseBall = memo(()=>{
     const [result, setResult] = useState('');
     const [value, setValue] = useState('');
     const [answer, setAnswer] = useState(getNumbers());
@@ -23,7 +23,6 @@ const BaseBall = ()=>{
     const inputRef = useRef(null);
 
     const onSubmitForm = (e)=>{
-        debugger;
         e.preventDefault();
         if(value === answer.join('')){
             setResult('홈런');
@@ -60,6 +59,7 @@ const BaseBall = ()=>{
             }
         }
     };
+
     const onChangeInput = (e)=>{
         console.log();
         setValue(inputRef.current.value);
@@ -88,7 +88,7 @@ const BaseBall = ()=>{
         </>
     );
     
-}
+});
 
 //es2015  모듈 문법-바벨이 바꿔준다
 export default BaseBall;
