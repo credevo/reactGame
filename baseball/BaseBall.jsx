@@ -54,7 +54,7 @@ class BaseBall extends Component{
                 value : '',
                 tries : [],
             });
-            this.refInput.focus();
+            this.inputRef.current.focus();
         }else{
             const valueArray = this.state.value.split('').map(v=>parseInt(v));
             let strike = 0;
@@ -81,7 +81,7 @@ class BaseBall extends Component{
                     tries : [...this.state.tries,{try: this.state.value, result : `strkie : ${strike}, ball : ${ball}`}],
                 })
             }
-            this.refInput.focus();
+            this.inputRef.current.focus();
         }
     }
     onChangeInput = (e)=>{
@@ -89,8 +89,8 @@ class BaseBall extends Component{
             value : e.target.value,
         })
     }
-    refInput ; 
-    inputRef = (c)=> this.refInput=c;
+    // refInput ; 
+    inputRef = createRef();
     
     render = ()=>{
         const {result, value, tries} = this.state; // 구조 분해를 통해 state 간략
