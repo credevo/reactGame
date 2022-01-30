@@ -1,13 +1,10 @@
 const path = require('path');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 
-
-// process.env.NODE_ENV = 'production' //환경설정 production
-
 module.exports = {
   name : 'reactCheck-setting',
   mode : 'development',       //실서비스 : production
-  devtool : 'eval',           //빠르게 hidden-source-map
+  devtool : 'source-map',           //빠르게 hidden-source-map
   resolve : {
     extensions :['.jsx','.js'],
   },
@@ -22,10 +19,7 @@ module.exports = {
         loader : 'babel-loader',
         options : {
           presets : [
-            ['@babel/preset-env',{
-              targets: {browsers: ['last 2 chrome versions']},
-              debug : true,
-            }],
+            '@babel/preset-env',
             '@babel/preset-react'
           ],
           plugins:['react-refresh/babel'],
