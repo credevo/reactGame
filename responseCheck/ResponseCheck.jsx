@@ -40,13 +40,25 @@ class ResponseCheck extends Component {
             });
         }
     }
-    // shouldComponentUpdate = (e)=>{
-
-    // }
+    shouldComponentUpdate(nextProps, nextState){
+        return this.state.state !== nextState.state;
+    }
+    onReset = ()=>{
+        this.setState({
+            result : []
+        })
+    }
     renderAverage = ()=>{
         return this.state.result.length === 0 
         ? null  
-        : <div>평균 시간 : { this.state.result.reduce((a,c)=>a+c) / this.state.result.length} ms</div>
+        : (
+            <div>
+                <span>평균 시간 : { this.state.result.reduce((a,c)=>a+c) / this.state.result.length} ms</span>
+                <button onClick={this.onReset}>Reset</button>
+            </div>
+            
+            )
+
     }
     renderTimes = ()=>{
         if(this.state.result.length){
