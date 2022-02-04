@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-
+import Ball from './Ball';
+import BallHook from './BallHook';
 
 
 function getNumbers(){
@@ -15,13 +16,21 @@ function getNumbers(){
 
 class Lotto extends Component{
     state = {
-        data : getNumbers(),
+        winNumbers : getNumbers(), //당첨 숫자들
+        winBalls : [],
+        bonus : null,
+        redo : false,
     }
     render = ()=>{
+        const {winNumbers, bonus, redo}  = this.state;
         return (
             <>
-                <div>
-                    {this.state.data.join(',')}
+                <div>당첨 숫자</div>
+                <div id="결과창">
+                    {winNumbers.map((v,i)=><Ball key={i} number={v}/>)}
+                </div>
+                <div style={{padding :'20px'}}>
+                    {winNumbers.map((v,i)=><BallHook key={i} number={v}/>)}
                 </div>
             </>
         )
