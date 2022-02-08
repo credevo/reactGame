@@ -1,11 +1,11 @@
 import React,{PureComponent} from 'react';
 
 class Ball extends PureComponent {
-    state = {
-        number : this.props.number
-    }
+    // state = {
+    //     number : this.props.number
+    // }
     render = ()=>{
-        const {number} = this.state;
+        const {number} = this.props;
 
         let background;
         if(number <= 10){

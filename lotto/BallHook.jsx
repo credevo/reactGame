@@ -1,25 +1,24 @@
-import React, {memo, useState} from 'react';
+import React, { memo } from 'react';
 
-const BallHook = memo((props)=>{
-    const {number} = props;
+// function BallHook({ number }){
+const BallHook = memo((  { number })=>{
     let background;
-    if(number <= 10){
+
+    if (number <= 10) {
         background = 'red';
-    }else if(number <=20){
+    } else if (number <= 20) {
         background = 'orange';
-    }else if(number <=30){
+    } else if (number <= 30) {
         background = 'yellow';
-    }else if(number <=40){
+    } else if (number <= 40) {
         background = 'blue';
-    }else{
+    } else {
         background = 'green';
     }
-    
+
     return (
-        <>
-            <div className="ball" style={{background}}> {number} </div>
-        </>
-    )
-})
+        <div className="ball" style={{ background }}>{number}</div>
+    );
+});
 
 export default BallHook;

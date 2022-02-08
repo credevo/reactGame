@@ -4,7 +4,7 @@ const ReactRefreshPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 module.exports = {
     name : 'lotto-game',
     mode : 'development',
-    devtool : 'source-map',
+    devtool : 'eval-source-map',
     resolve : {
         extensions :['.jsx','.js'],
     },
