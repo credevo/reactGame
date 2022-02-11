@@ -1,14 +1,15 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import Td from './Td';
 
-class Tr extends PureComponent {
+class Tr extends Component {
     render(){
         const {rowIndex} =  this.props;
         return (
-            <tr>
-                
+            <tr>        
                 {
-                    Array(3).fill().map((el,cellIndex) => <Td key={cellIndex} rowIndex={rowIndex} cellIndex={cellIndex} />)
+                    Array(3).fill(0).map((el,i) => {
+                        return <Td key={i} rowIndex={rowIndex} cellIndex={i} />
+                    })
                 }
             </tr>
         )

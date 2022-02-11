@@ -1,24 +1,19 @@
 import React, { Component } from 'react';
-import Tr from './Tr';
+import TableComp from './TableComp';
 
 class TicTacTo extends Component{
     state = {
-        rowCount  : 3
+        result : '님이 이겼습니다.',
+        winner : ''
     }
     
     render(){
-        const {rowCount} = this.state;
+        const {result,winner} = this.state;
         return (
-            <table>
-                <tbody>
-                {
-                    Array(rowCount).fill(0).map((row,i)=>{
-                        return <Tr rowIndex={i} key={i}/>
-                    })
-                }
-                </tbody>
-                
-            </table>
+            <>
+                <TableComp />
+                <div>{winner + ' ' + result}</div>
+            </>
         )
     }
 }
