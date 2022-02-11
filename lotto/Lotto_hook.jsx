@@ -22,6 +22,12 @@ function getWinNumbers() {
 // bonus 1번, 
 // redo 1번, 
 // 총 9번 실행된다. = console.log(lotto-hook)
+
+/**
+ * hooks 사용시 주의점
+ * 1. usState의 순서가 if문 분기하여 변경된되지 않아야 한다.
+ * 2. hooks 내 다른 hooks 사용 하지 않는다.
+ */
 const Lotto = ()=>{
     console.log("lotto-hook");
     // caching
@@ -58,6 +64,29 @@ const Lotto = ()=>{
             timeouts.current.forEach(v=>clearTimeout(v));
         }
     },[timeouts.current]); //componentDidMount, componentDidUpdate
+
+    /**================================================ 
+     * 패턴 1 : mount 될때만 쓰고 싶을 경우
+     * 
+     * useEffect(()=>{
+     *      //ajax 와 같이 적용 = mount 될때만 적용하는 경우 사용한다.
+     * },[])
+     * 
+     * ================================================ 
+     * 패턴 2 : componentDidUpdate 일때만, useEffect 를 쓰고 싶을때
+     * 
+     * const mounted = useState(false);
+     * useEffect(()=>{
+     *     if(!mounted.current){
+     *         mounted.current = true;
+     *     }else{
+     *         //ajax 
+     *         // 업데이트될때의 [source]
+     *     }
+     * },[update되는 변수지정])
+     * 
+     * ================================================ 
+     */
 
     const onClickRedo = useCallback(() => {
         console.log("onClickRedo");
