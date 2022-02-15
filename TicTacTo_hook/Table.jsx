@@ -1,19 +1,22 @@
 import React , {memo, useState} from 'react';
 import Tr from './Tr';
 
-const TableComp = memo(()=>{
-    const [rowCount, setRowCount] = useState(3);
+const Table = memo(({onClick, tableData})=>{
+    Table.displayName = 'Table';
+
     return (
-        <table>
+        <table onClick={onClick}>
             <tbody>
                 {
-                    Array(3).fill().map((e,i)=> {
-                        return <Tr rowIndex={i} key={i} />
+                    Array(tableData.length).fill().map((el,index)=>{
+                        return <Tr rowData={tableData[index]} key={index}/>
                     })
                 }
             </tbody>
+            
         </table>
     )
 
 });
-export default TableComp;
+
+export default Table;

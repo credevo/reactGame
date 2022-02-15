@@ -1,11 +1,9 @@
 import React, { memo } from 'react';
 
-const Td = memo((props)=>{
-    const {rowIndex,cellIndex} = props;
+const Td = memo(({cellData})=>{
+    Td.displayName = 'Td';
     return(
-        <td>
-            {rowIndex} , {cellIndex}
-        </td>
+        <td>{cellData}</td>
     )
 });
 

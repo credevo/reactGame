@@ -1,17 +1,17 @@
 import React, { memo } from 'react'
 import Td from './Td';
 
-const Tr = memo((props)=>{
-    const rowIndex = props.rowIndex;
+const Tr = ({rowData})=>{
+    Tr.displayName = 'Tr';
     return (
         <tr>        
             {
-                Array(3).fill(0).map((el,i) => {
-                    return <Td key={i} rowIndex={rowIndex} cellIndex={i} />
+                Array(rowData.length).fill().map((r,i)=>{
+                    return (<Td key={i} cellData={rowData[i]}></Td>)
                 })
             }
         </tr>
     )
-})
+}
 
 export default Tr;
