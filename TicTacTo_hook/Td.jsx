@@ -1,16 +1,16 @@
 import React, { memo,useCallback, useEffect, useRef } from 'react';
 import { CLICK_CELL} from './TicTacTo';
 
-const Td = memo(({rowIndex,cellIndex,dispatch,cellData})=>{
+const Td = ({rowIndex,cellIndex,dispatch,cellData})=>{
     Td.displayName = 'Td';
     
     console.log('TD :: render');
-    let cell = useRef([]);
-
-    useEffect(()=>{
-        console.log(rowIndex === cell[0],cellIndex === cell[1],cellData === cell[2]);
-        cell = [rowIndex,cellIndex,cellData];
-    },[rowIndex,cellIndex,cellData])    
+    
+    // const ref = useRef([]);
+    // useEffect(()=>{
+    //     console.log(rowIndex === ref.current[0],cellIndex === ref.current[1],cellData === ref.current[2]);
+    //     ref.current = [rowIndex,cellIndex,cellData];
+    // },[rowIndex,cellIndex,cellData])    
 
     
     const onClickTd = useCallback(()=>{
@@ -24,6 +24,8 @@ const Td = memo(({rowIndex,cellIndex,dispatch,cellData})=>{
     return(
         <td onClick={onClickTd}>{cellData}</td>
     )
-});
+};
 
 export default Td;
+
+
