@@ -5,10 +5,12 @@ const Td = memo(({rowIndex,cellIndex,dispatch,cellData})=>{
     Td.displayName = 'Td';
     
     const onClickTd = useCallback(()=>{
+        // 재입력 무시
+        if(cellData) return ;
+        //
         console.log(rowIndex,cellIndex);
         dispatch({type:CLICK_CELL, row:rowIndex, cell:cellIndex})
-        dispatch({type:CHANGE_TRUN})
-    },[])
+    },[cellData])
 
     return(
         <td onClick={onClickTd}>{cellData}</td>

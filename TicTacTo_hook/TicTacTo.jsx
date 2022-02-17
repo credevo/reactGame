@@ -1,19 +1,22 @@
-import React, { memo, useState, useCallback, useReducer} from 'react';
+import React, { memo, useState, useCallback, useReducer, useEffect} from 'react';
 import Table from './Table';
 
 const initialState = {
     winner : '',
-    turn : 'X',
+    turn : 'O',
     tableData : [
         ['','','',],
         ['','','',],
         ['','','',]
-    ]
+    ],
+    recentCell : [-1,-1]
 }
 
 export const SET_WINNER = 'SET_WINNER';
 export const CLICK_CELL = 'CLICK_CELL';
 export const CHANGE_TRUN = 'CHANGE_TRUN';
+export const RESET_GAME = 'RESET_GAME';
+
 
 const reducer = (state, action)=>{
     switch(action.type){
@@ -29,6 +32,7 @@ const reducer = (state, action)=>{
                 return {
                     ...state,
                     tableData,
+                    recentCell : [action.row, action.cell]
                 }
             }
         case CHANGE_TRUN : {
@@ -37,7 +41,18 @@ const reducer = (state, action)=>{
                 turn : state.turn == 'O' ? 'X' : 'O'    
             }
         }
-
+        case RESET_GAME : {
+            return {
+                ...state,
+                turn : 'X',
+                tableData : [
+                    ['','','',],
+                    ['','','',],
+                    ['','','',]
+                ],
+                recentCell : [-1,-1]
+            }
+        }
     }
 }
 
@@ -45,9 +60,60 @@ const TicTacTo = memo(()=>{
     TicTacTo.displayName = 'TicTacTo';
     
     const [state, dispatch]  = useReducer(reducer, initialState);
-    
+    const {tableData, turn, recentCell } = state;
+
+    useEffect(()=>{
+        const [row, cell] = recentCell;
+        if(row < 0) return; //최초 작동 방지
+
+        let win = false; //default win condition\
+        // win check logic
+        if(tableData[row][0]=== turn  && tableData[row][1] === turn && tableData[row][2] === turn) win = true;
+        if(tableData[0][cell] === turn && tableData[1][cell] === turn && tableData[2][cell] === turn)  win = true;
+        if(tableData[0][0] === turn && tableData[1][1] === turn && tableData[2][2] === turn) win= true;
+        if(tableData[0][2] === turn && tableData[1][1] === turn && tableData[2][0] === turn) win= true;
+
+        //if win?
+        if(win){
+            dispatch({type:SET_WINNER, winner:turn});
+            dispatch({type:RESET_GAME});
+        }else{
+            // 게임 진행중 파악
+            let all = true;
+            tableData.forEach((row)=> {
+                row.forEach((cell)=> {     
+                    if(!cell){
+                        all = false;
+                    }
+                });
+            });
+            // 계임 상태 파악
+            if(!all){
+                //계속 지속
+                dispatch({type:CHANGE_TRUN});
+            }else{
+                //무승부
+                dispatch({type:RESET_GAME});
+            }
+
+            
+        }
+        
+        
+
+
+
+
+    },[tableData])
+
+
     const onClickTable = useCallback(()=>{
         dispatch({type : SET_WINNER, winner : 'O'}); // dispatch(action)형태 //action의 이름은 대문자가 거의 규칙
+        
+
+
+
+
     },[]);
 
     return (
