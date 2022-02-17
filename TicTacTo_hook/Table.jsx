@@ -3,7 +3,7 @@ import Tr from './Tr';
 
 const Table = memo(({onClick, tableData,dispatch})=>{
     Table.displayName = 'Table';
-
+    console.log('TABLE :: render');
     return (
         <table>
             <tbody>

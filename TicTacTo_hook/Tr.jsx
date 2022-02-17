@@ -1,8 +1,9 @@
 import React, { memo } from 'react'
 import Td from './Td';
 
-const Tr = ({rowData,rowIndex,dispatch})=>{
+const Tr = memo(({rowData,rowIndex,dispatch})=>{
     Tr.displayName = 'Tr';
+    console.log('TR :: render');
     return (
         <tr>        
             {
@@ -12,6 +13,6 @@ const Tr = ({rowData,rowIndex,dispatch})=>{
             }
         </tr>
     )
-}
+});
 
 export default Tr;

@@ -56,7 +56,7 @@ const reducer = (state, action)=>{
     }
 }
 
-const TicTacTo = memo(()=>{
+const TicTacTo = ()=>{
     TicTacTo.displayName = 'TicTacTo';
     
     const [state, dispatch]  = useReducer(reducer, initialState);
@@ -122,6 +122,6 @@ const TicTacTo = memo(()=>{
             {state.winner && <div>{state.winner} 님의 승리</div>}
         </>
     )
-});
+};
 
 export default TicTacTo;
