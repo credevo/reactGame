@@ -29,11 +29,10 @@ const Form = ()=>{
         setMine(e.target.value);
     });
 
-    const onClickBtn = (e)=>{
+    const onClickBtn = useCallback((e)=>{
         e.preventDefault();
-        console.log('createTable : start');
         dispatch({type:START_GAME, row,cell, mine})
-    };
+    });
     // },[row,cell,mine]);
     
     return (
