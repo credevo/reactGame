@@ -9,12 +9,6 @@ export const QUESTION_CELL = 'QUESTION_CELL';
 export const NORMALIZE_CELL = 'NORMALIZE_CELL';
 export const CLICK_MINE = 'CLICK_MINE';
 
-
-export const TableContext = createContext({
-    tableData : [],
-    dispatch : ()=>{}
-});//기본값});
-
 // 칸의 상태 CODE 값
 export const CODE = {
     MINE : -7,
@@ -26,6 +20,20 @@ export const CODE = {
     CLICKED_MINE : -6,
     OPEND : 0, //0 이상이면 다 OPEND로 하고, 
     //주변 마인 갯수에 따라 카운되는 숫자가 나타난다.
+}
+// context created(초기값들)
+export const TableContext = createContext({
+    tableData : [],
+    dispatch : ()=>{},
+    halted : true,
+});//기본값});
+
+// context created(useReducer 초기값 state)
+const initialState = {
+    tableData : [],
+    timer : 0,
+    result : '',
+    halted : false,
 }
 
 const plantMine  = (row,cell,mine)=>{
@@ -53,14 +61,8 @@ const plantMine  = (row,cell,mine)=>{
         data[ver][hor] = CODE.MINE;
     }
     // console.log 지뢰
-    console.log('plantMine:',data);
+    console.log('plantMine:',data); 
     return data;
-}
-
-const initialState = {
-    tableData : [],
-    timer : 0,
-    result : '',
 }
 
 const reducer = (state,action)=>{
@@ -80,7 +82,7 @@ const reducer = (state,action)=>{
             tableData[action.row] = [...state.tableData[action.row]];
             tableData[action.row][action.cell] = CODE.CLICKED_MINE;
             return {
-                ...state,tableData
+                ...state,tableData, halted : true,
             }
         case FLAG_CELL : 
             tableData[action.row] = [...state.tableData[action.row]];
@@ -120,11 +122,15 @@ const reducer = (state,action)=>{
 const MineFind = ()=>{
     const [state, dispatch]= useReducer(reducer, initialState);
     // tableData가 변경될때 value 변수에 캐싱하여 사용한다.=> 그것을 contextApi 적용
-    const value = useMemo(()=>({ tableData : state.tableData, dispatch }),[state.tableData]);
+    const {tableData, halted, timer, result} = state;
+    const value = useMemo(()=>{
+        return {tableData, halted, dispatch};
+    }, [tableData, halted]);
+    //
     return (
         <TableContext.Provider value={value}>  
-            <div><span>timer : </span>{state.timer}</div>
-            <div><span>result : </span>{state.result}</div>
+            <div><span>timer : </span>{timer}</div>
+            <div><span>result : </span>{result}</div>
             <div>------------------------------------------------------------------------------------</div>
             <Form></Form>
             <div>------------------------------------------------------------------------------------</div>

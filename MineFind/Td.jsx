@@ -9,12 +9,15 @@ const getTdStyle = (code) => {
             return {
                 backgroundColor : '#999'
             }
-        case CODE.QUESTION :
-        case CODE.QUESTION_MINE:
         case CODE.FLAG :
         case CODE.FLAG_MINE :
             return {
                 backgroundColor : 'red'
+            }
+        case CODE.QUESTION :
+        case CODE.QUESTION_MINE:
+            return {
+                backgroundColor : 'yellow'
             }
         case CODE.OPEND : 
         default : 
@@ -41,9 +44,10 @@ const getTdText = (code) =>{
 
 const Td = ({rowIndex,cellIndex})=>{
     //
-    const {tableData,dispatch} = useContext(TableContext);
+    const {tableData,halted, dispatch} = useContext(TableContext);
     //
     const onClickTd = useCallback((e)=>{
+        if(halted) return;
         switch(tableData[rowIndex][cellIndex]){
             case CODE.OPEND : 
             case CODE.QUESTION : 
@@ -59,6 +63,7 @@ const Td = ({rowIndex,cellIndex})=>{
         }
     });
     const onRightClickTd = useCallback((e)=>{
+        if(halted) return;
         e.preventDefault();
         switch(tableData[rowIndex][cellIndex]){
             case CODE.NORMAL :
