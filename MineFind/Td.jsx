@@ -37,7 +37,7 @@ const getTdText = (code) =>{
         case CODE.FLAG :
         case CODE.FLAG_MINE : 
             return '!';
-        default : return '';
+        default : return code || '';
 
     }
 }
