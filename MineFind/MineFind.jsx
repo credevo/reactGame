@@ -74,31 +74,25 @@ const reducer = (state,action)=>{
                 tableData : plantMine(action.row, action.cell, action.mine)
             }
         case OPEN_CELL :
-            /*
-            주변 8칸에 대한 카운팅하는 로직 
-            */ 
+            /*주변 8칸에 대한 카운팅하는 로직 */ 
             let around = [];
-            //윗줄 3개
-            if(tableData[action.row-1]){
+            if(tableData[action.row-1]){//윗줄 3개
                 around = around.concat(
                     tableData[action.row-1][action.cell-1],
                     tableData[action.row-1][action.cell],
                     tableData[action.row-1][action.cell+1],
                 )
-            }
-            // 왼쪽 1개, 오른쪽 1개 : row 가 있는 조건에서 cell이 undefind 되는 조건 고려할 필요없다.
-            around = around.concat(tableData[action.row][action.cell-1]);
+            }            
+            around = around.concat(tableData[action.row][action.cell-1]);// 왼쪽 1개, 오른쪽 1개 : row 가 있는 조건에서 cell이 undefind 되는 조건 고려할 필요없다.
             around = around.concat(tableData[action.row][action.cell+1]);
-            //아래줄 3개
-            if(tableData[action.row+1]){
+            if(tableData[action.row+1]){//아래줄 3개
                 around = around.concat(
                     tableData[action.row+1][action.cell-1],
                     tableData[action.row+1][action.cell],
                     tableData[action.row+1][action.cell+1],
                 )
             }
-            // 주변 지뢰 갯수 couting
-            const counter = around.filter(code => [CODE.FLAG_MINE, CODE.QUESTION_MINE, CODE.MINE].includes(code)).length;
+            const counter = around.filter(code => [CODE.FLAG_MINE, CODE.QUESTION_MINE, CODE.MINE].includes(code)).length;// 주변 지뢰 갯수 couting
             tableData[action.row][action.cell] = counter;
             console.log('counting:', around, counter);
             return {
